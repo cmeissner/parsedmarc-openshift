@@ -1,0 +1,19 @@
+{
+  "cluster": [ ],
+  "indices": [
+    {
+      "names": [
+        "dmarc_aggregate*",
+        "dmarc_forensic*"
+      ],
+      "privileges": [
+          "read",
+          "write",
+          "view_index_metadata",
+          "create",
+          "delete",
+          "create_index"
+      ]
+    }
+  ]
+}

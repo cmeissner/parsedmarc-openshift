@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parsedmarc
+  namespace: parsedmarc
+spec:
+  selector:
+    matchLabels:
+      app: name
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: name
+    spec:
+      containers:
+        - name: parsedmarc
+          image: quay.io/codeaffen/parsedmarc:latest
+          volumeMounts:
+          - name: parsedmarc-ini
+            mountPath: "/etc/parsedmarc"
+            readOnly: true
+          - name: elastic-ca
+            mountPath: "/etc/parsedmarc/ca"
+            readOnly: true
+      volumes:
+      - name: parsedmarc-ini
+        secret:
+          secretName: parsedmarc-secret
+          items:
+          - key: parsedmarc.ini
+            path: parsedmarc.ini
+      - name: elastic-ca
+        secret: 
+          secretName: parsedmarc-es-http-ca-internal
+          items:
+          - key: tls.crt
+            path: elastic_ca.crt

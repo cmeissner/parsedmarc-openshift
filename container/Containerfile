@@ -1,0 +1,11 @@
+FROM python:3.9-slim
+
+RUN sed -i -e 's/Components:.*/Components: main contrib/g' /etc/apt/sources.list.d/debian.sources && \
+  apt-get update && \ 
+  apt-get install -y geoipupdate && \ 
+  apt-get autoclean && \ 
+  apt-get autoremove && \ 
+  rm /etc/apt/sources.list.d/debian.sources && \
+  pip install parsedmarc
+
+CMD ["parsedmarc", "-c", "/etc/parsedmarc/parsedmarc.ini", "--verbose"]

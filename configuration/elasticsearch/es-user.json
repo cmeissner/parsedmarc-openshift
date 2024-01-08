@@ -1,0 +1,5 @@
+{
+  "password" : "dm4rcp455w0rd",
+  "roles" : [ "parsedmarc"],
+  "full_name" : "User for Ingesting DMARC information"
+}

@@ -1,0 +1,30 @@
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: parsedmarc
+spec:
+  version: 8.11.3
+  count: 1
+  elasticsearchRef:
+    name: parsedmarc
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    common.k8s.elastic.co/type: kibana
+    kibana.k8s.elastic.co/name: parsedmarc
+  name: kb
+spec:
+  host: dmarc.apps.home.adsfg.xyz
+  port:
+    targetPort: https
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: passthrough
+  to:
+    kind: Service
+    name: parsedmarc-kb-http
+    weight: 100
+  wildcardPolicy: None
