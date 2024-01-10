@@ -1,7 +1,7 @@
 FROM python:3.11-alpine
 
 RUN apk add gcc musl-dev libxslt-dev zlib-dev libxml2-dev && \
-    pip install parsedmarc && \
+    pip install parsedmarc && pip uninstall -y pip setuptool && \
     apk del gcc musl-dev libxslt-dev zlib-dev libxml2-dev
 
 CMD ["parsedmarc", "-c", "/etc/parsedmarc/parsedmarc.ini", "--verbose"]
