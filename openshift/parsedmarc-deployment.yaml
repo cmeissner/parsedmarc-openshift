@@ -23,6 +23,13 @@ spec:
           - name: elastic-ca
             mountPath: "/etc/parsedmarc/ca"
             readOnly: true
+          resources:
+            requests:
+              cpu: 1m
+              memory: "100M"
+            limits:
+              cpu: 1m
+              memory: "100M"
       volumes:
       - name: parsedmarc-ini
         secret:
