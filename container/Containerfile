@@ -1,11 +1,7 @@
-FROM python:3.9-slim
+FROM python:3.11-alpine
 
-RUN sed -i -e 's/Components:.*/Components: main contrib/g' /etc/apt/sources.list.d/debian.sources && \
-  apt-get update && \ 
-  apt-get install -y geoipupdate && \ 
-  apt-get autoclean && \ 
-  apt-get autoremove && \ 
-  rm /etc/apt/sources.list.d/debian.sources && \
-  pip install parsedmarc
+RUN apk add gcc musl-dev libxslt-dev zlib-dev libxml2-dev && \
+    pip install parsedmarc && \
+    apk del gcc musl-dev libxslt-dev zlib-dev libxml2-dev
 
 CMD ["parsedmarc", "-c", "/etc/parsedmarc/parsedmarc.ini", "--verbose"]
